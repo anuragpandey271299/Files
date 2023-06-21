@@ -96,7 +96,7 @@ order by 4 desc
 -- Write a query that return each country along with top genre.
 with popular_genre as(
 select count(invoice_line.quantity), genre.genre_id, genre.name, customer.country,
-ber() over(partition by(customer.country) order by count(invoice_line.quantity) desc) from invoice_line
+row_number() over(partition by(customer.country) order by count(invoice_line.quantity) desc) from invoice_line
 join invoice on invoicrow_nume_line.invoice_id = invoice.invoice_id
 join customer on invoice.customer_id = customer.customer_id
 join track on invoice_line.track_id = track.track_id
